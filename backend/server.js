@@ -3,22 +3,21 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./db'); // Import db module
+const db = require('./db');
 const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 // Enable CORS with specific origin
 app.use(cors({
-    origin: 'http://localhost:3000',  // Allow requests from localhost:3000 (your React app)
-    methods: 'GET,POST,PUT,DELETE',  // Specify allowed HTTP methods (optional)
-    allowedHeaders: 'Content-Type,Authorization'  // Specify allowed headers (optional)
+  origin: 'http://localhost:5002',  // Update to match the React app's origin
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
 }));
-
 
 app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // Use promise API for the query
 db.query('SELECT 1')
